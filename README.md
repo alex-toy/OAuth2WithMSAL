@@ -1,8 +1,7 @@
 # OAuth2 with MSAL
 
-This exercise will help you get familiar with integrating the Microsoft Authentication Library,
-or `msal`, into an application. In the previous exercise, you registered an app with Azure Active
-Directory, and you'll use some of the information from there so that authentication can occur.
+Integrating the Microsoft Authentication Library, or `msal`, into an application. 
+Register an app with Azure Active Directory, and use some of the information from there so that authentication can occur.
 
 **Note**: This app will be served on `https` only as Azure AD will block insecure connections for redirect URIs on deployed applications. As such, when testing on `localhost`, make sure to add `https` at the start instead of `http`, e.g. `https://localhost:5555`.
 
