@@ -52,7 +52,7 @@ def authorized():
             scopes=Config.SCOPE,
             redirect_uri=url_for('authorized', _external=True, _scheme='https')
         )
-        result = {'error': 'Not Implemented', 'error_description': 'Function not implemented.'}
+        # result = {'error': 'Not Implemented', 'error_description': 'Function not implemented.'}
         if 'error' in result:
             return render_template('auth_error.html', result=result)
         session['user'] = result.get('id_token_claims')
@@ -81,7 +81,7 @@ def _save_cache(cache):
 def _build_msal_app(cache=None, authority=None):
     return msal.ConfidentialClientApplication(
         Config.CLIENT_ID,
-        authority = authority or Congig.Config,
+        authority = authority or Config.AUTHORITY,
         client_credential = Config.CLIENT_SECRET,
         token_cache = cache
     )

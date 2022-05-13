@@ -1,1 +1,5 @@
 /config.py
+/commands/Configs/secret.cfg
+/commands/Configs/var.cfg
+*.pyc
+venv
