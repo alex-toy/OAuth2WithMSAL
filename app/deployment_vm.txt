@@ -10,42 +10,43 @@ cd /etc/nginx/sites-available
 #unlink the default site 
 sudo unlink /etc/nginx/sites-enabled/default
 
-sudo vim reverse-proxy.conf
+touch reverse-proxy.conf
 
-#add the following to reverse-proxy.conf :
-server {
+echo "server {
     listen 80;
     location / {
-        proxy_pass http://localhost:5555;
+        proxy_pass https://localhost:5555;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection keep-alive;
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
     }
-}
+}" > /etc/nginx/sites-available/reverse-proxy.conf
 
 #activate the directories by creating a sym link to the /sites-enabled directory 
 sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/reverse-proxy.conf
 
 #restart nginx so the changes take effect
+service nginx status
+sudo service nginx stop
 sudo service nginx restart
 
 
 ################################################################
 #DEPLOYING TO THE VM :
 
-cd /path/to/web
+cd /path/to/app
 
 python3 -m venv venv
 
-source venv/bin/activate #mac
-.\venv\Scripts\activate #windows
-.\venv\Scripts\deactivate #windows
+source venv/bin/activate
 
 pip install --upgrade pip 
 pip install -r requirements.txt
 pip install --upgrade pyodbc
+sudo apt-get install python3.6-dev
+sudo apt-get install unixodbc-dev
 pip install flask_sqlalchemy flask_login  flask_session flask_wtf azure.storage.blob msal
 
 python application.py

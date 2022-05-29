@@ -1,17 +1,35 @@
+"###############################################################"
+"Now running : " + $MyInvocation.MyCommand.Path
+"###############################################################"
+
+
 ################################################################
-#CREATE A VM :
+# VM configuration :
+
+$Global:VMName = "flask-linux-vm"
+$Global:ImageName = "UbuntuLTS"
+# Standard_B1ls Standard_L8s_v2 Standard_B1s
+$Global:Size = "Standard_L8s_v2" #linux machine??
+$Global:AdminUsername = "alexadmin"
+$Global:Port = "80"
+$Global:storageSku = "Standard_HDD"
+
+
+################################################################
+"CREATE A VM :"
 
 az vm create `
-   --resource-group $RGName `
-   --name $VMName `
-   --location $RGLocation `
-   --image $ImageName `
-   --size $Size `
-   --admin-username $AdminUsername `
-   --generate-ssh-keys `
-   --verbose
- #  --os-disk-size-gb 63
-   #--storage-sku $storageSku `
+  --resource-group $RGName `
+  --name $VMName `
+  --location $RGLocation `
+  --image $ImageName `
+  --size $Size `
+  --admin-username $AdminUsername `
+  --generate-ssh-keys `
+  --custom-data commands\VirtualMachine\init.sh `
+  --verbose
+#  --os-disk-size-gb 63
+  #--storage-sku $storageSku `
 
 
 #open port 80 to allow outside traffic to our VM
@@ -30,15 +48,6 @@ $json = Get-Content $file -Raw | ConvertFrom-Json
 #IP address :
 $Global:IP = $json.virtualMachine.network.publicIpAddresses.ipAddress
 "IP : " + $IP
-
-
-#######################################################################
-# Next step :
-
-"Now run : commands\VirtualMachine\VM_connect.ps1 then run the generated scp and ssh commands, the deploy the flask app."
-
-
-
 
 
 

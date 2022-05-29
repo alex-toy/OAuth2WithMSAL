@@ -3,3 +3,5 @@
 /commands/Configs/var.cfg
 *.pyc
 venv
+/app/var.cfg
+web

@@ -1,7 +1,23 @@
 # OAuth2 with MSAL
 
-Integrating the Microsoft Authentication Library, or `msal`, into an application. 
-Register an app with Azure Active Directory, and use some of the information from there so that authentication can occur.
+NOT WORKING WHEN DEPLOYING THE APP : 502 BAD GATEWAY!!!
+
+## Instructions to launch the project
+
+1. Run *commands\steps.ps1*. At that point an **app registration** has automatically been created for you. The **Application (client) ID** appropriately pasted to the **app\var.cfg** at the corresponding place. Same for the client secret.
+
+2. In the Azure portal, in the just created **App Registration**, navigate to **Authentication** then **Add a platform** then choose **Web Application** and paste :
+- Redirect URIs : *https://Your_VM_IP:5555/getAToken*
+- Logout : *https://Your_VM_IP:5555/login*
+- Redirect URIs : *https://localhost:5555/getAToken*
+- Logout URI : *https://localhost:5555/login*
+
+3. Deploy the application in the VM created for you. You will be automatically connected at that moment.
+
+You can then go to the url and check that you can connect to the application using a Microsoft Account.
+
+## General description
+Integrating the Microsoft Authentication Library, or `msal`, into an application. You should have previously registered an app with Azure Active Directory, and you'll use some of the information from there so that authentication can occur.
 
 **Note**: This app will be served on `https` only as Azure AD will block insecure connections for redirect URIs on deployed applications. As such, when testing on `localhost`, make sure to add `https` at the start instead of `http`, e.g. `https://localhost:5555`.
 
